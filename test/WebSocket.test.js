@@ -330,22 +330,18 @@ describe('WebSocket', function() {
     it('before connect should fail', function(done) {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
-        ws.on('error', function() {});
-        try {
-          ws.ping();
-        }
-        catch (e) {
+        ws.on('error', function(e) {
           srv.close();
           ws.terminate();
           done();
-        }
+        });
+      ws.ping();
       });
     });
 
     it('before connect can silently fail', function(done) {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
-        ws.on('error', function() {});
         ws.ping('', {}, true);
         srv.close();
         ws.terminate();
@@ -403,22 +399,18 @@ describe('WebSocket', function() {
     it('before connect should fail', function(done) {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
-        ws.on('error', function() {});
-        try {
-          ws.pong();
-        }
-        catch (e) {
+        ws.on('error', function(e) {
           srv.close();
           ws.terminate();
           done();
-        }
+        });
+        ws.pong();
       });
     });
 
     it('before connect can silently fail', function(done) {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
-        ws.on('error', function() {});
         ws.pong('', {}, true);
         srv.close();
         ws.terminate();
@@ -579,15 +571,12 @@ describe('WebSocket', function() {
     it('before connect should fail', function(done) {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
-        ws.on('error', function() {});
-        try {
-          ws.send('hi');
-        }
-        catch (e) {
+        ws.on('error', function(e) {
           ws.terminate();
           srv.close();
           done();
-        }
+        });
+        ws.send('hi');
       });
     });
 
